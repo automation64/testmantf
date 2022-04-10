@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+[[ -z "$DEVTMTF_SRC" ]] && echo 'Fatal: dev env not set' && exit 1
+
+set -x
+cat \
+  "${DEVTMTF_SRC}/testmantf.header" \
+  "${DEVTMTF_SRC}/bashlib64.bash" \
+  "${DEVTMTF_SRC}/testmantf.bash" \
+  >"${DEVTMTF_BUILD}/testmantf"

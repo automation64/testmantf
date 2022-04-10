@@ -7,19 +7,29 @@
 #
 
 function testmantf_container_run() {
+  bl64_dbg_app_trace_start
+  local -i status=0
+
+  # shellcheck disable=SC2086
   "$TESTMANTF_CMD_CONTAINER" \
     run \
-    --tty \
+    --rm \
     --volume "${TESTMANTF_ROOT}:/mnt" \
+    $_TESTMANTF_EXPORTS_ENV \
     --env TF_CLI_CONFIG_FILE \
     --env TF_DATA_DIR \
     --env TF_LOG_PATH \
     --env TF_PLUGIN_CACHE_DIR \
     --env TF_LOG \
     "$@"
+  status=$?
+
+  bl64_dbg_app_trace_stop
+  return $status
 }
 
 function testmantf_set_workspace() {
+  bl64_dbg_app_trace_start
   local container="$1"
   local module="$2"
 
@@ -30,17 +40,23 @@ function testmantf_set_workspace() {
   [[ ! -d "$TF_PLUGIN_CACHE_DIR" ]] && bl64_os_mkdir_full "$TF_PLUGIN_CACHE_DIR"
 
   if [[ "$container" == '1' ]]; then
+    # Set container variables
     TF_DATA_DIR="/mnt/$(bl64_fmt_basename "${TESTMANTF_VAR}")/${module}"
     TF_PLUGIN_CACHE_DIR="/mnt/$(bl64_fmt_basename "${TESTMANTF_CACHE}")/${module}"
     TF_CLI_CONFIG_FILE="/mnt/$(bl64_fmt_basename "${TESTMANTF_TEST}")/terraformrc.hcl"
+
+    # Modify paths for container run
+    _TESTMANTF_EXPORTS_ENV="${_TESTMANTF_TEST_TARGET}/exports.env"
+    [[ -f "$_TESTMANTF_EXPORTS_ENV" ]] && _TESTMANTF_EXPORTS_ENV="--env-file ${_TESTMANTF_EXPORTS_ENV}" || _TESTMANTF_EXPORTS_ENV=''
     _TESTMANTF_TEST_TARGET="/mnt/test/${module}"
+
   else
     TF_CLI_CONFIG_FILE="${TESTMANTF_TEST}/terraformrc.hcl"
   fi
   TF_LOG_PATH="${TF_DATA_DIR}/terraform.log"
   _TESTMANTF_TEST_TFSTATE="${TF_PLUGIN_CACHE_DIR}/terraform.tfstate"
-  TF_LOG='debug'
 
+  bl64_dbg_app_trace_stop
   return 0
 }
 
@@ -49,7 +65,7 @@ function testmantf_cleanup() {
   local container="$2"
   local image="$3"
 
-  testmantf_init "$module" '0' "$image"
+  testmantf_set_workspace "$container" "$module"
 
   bl64_os_rm_full "${TF_PLUGIN_CACHE_DIR}/registry.terraform.io"
   bl64_os_rm_full "${TF_DATA_DIR}/modules"
@@ -76,7 +92,7 @@ function testmantf_init() {
     testmantf_container_run \
       "$image" \
       -chdir="$_TESTMANTF_TEST_TARGET" \
-    'init' \
+      'init' \
       -backend-config="path=$_TESTMANTF_TEST_TFSTATE" || return $?
   fi
 }
@@ -96,7 +112,7 @@ function testmantf_run() {
   else
     testmantf_container_run "$image" \
       -chdir="$_TESTMANTF_TEST_TARGET" \
-    'apply' \
+      'apply' \
       -auto-approve
   fi
 }
@@ -117,7 +133,7 @@ function testmantf_destroy() {
   else
     testmantf_container_run "$image" \
       -chdir="$_TESTMANTF_TEST_TARGET" \
-    'apply' \
+      'apply' \
       -destroy \
       -auto-approve
   fi
@@ -137,7 +153,7 @@ function testmantf_show() {
   else
     testmantf_container_run "$image" \
       -chdir="$_TESTMANTF_TEST_TARGET" \
-    'show'
+      'show'
   fi
 }
 
@@ -161,11 +177,10 @@ function testmantf_set_exports() {
   # Declare script exports
   export TESTMANTF_ROOT
   export TESTMANTF_TEST
-  export TESTMANTF_CMD_TERRAFORM
-  export TESTMANTF_CMD_CONTAINER
-  export TESTMANTF_TEST
   export TESTMANTF_VAR
   export TESTMANTF_CACHE
+  export TESTMANTF_CMD_TERRAFORM
+  export TESTMANTF_CMD_CONTAINER
 
   # Declare Terraform exports
   export TF_CLI_CONFIG_FILE
@@ -208,6 +223,7 @@ function testmantf_help() {
 # Main
 #
 
+declare _TESTMANTF_EXPORTS_ENV=''
 declare _TESTMANTF_TEST_LOCK=''
 declare _TESTMANTF_TEST_TARGET=''
 declare _TESTMANTF_TEST_TFSTATE=''

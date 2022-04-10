@@ -8,27 +8,33 @@ The **testmantf** tool provides a simple management interface for testing terraf
 
 Supported features:
 
-- Run test inside container using **podman**
+- Run test inside container using docker compatible container engine
+  - docker
+  - podman
 - Run test using native **terraform**
 - Test terraform scripts
   - terraform init
   - terraform apply
   - terraform show
 - Clean-up test environment
-- Isolate test-case's runtime environment from eachother:
+- Isolate test-case's runtime environment from each other:
   - logs
   - tfstate
   - tflock
+  - input variables (exports.env)
 
-Default test cases directory structure:
+Directory structure and tools:
 
-| Shell variable  | Default value               | Purpose                   |
-| --------------- | --------------------------- | ------------------------- |
-| TESTMANTF_ROOT  | `.`                         | Project directory         |
-| TESTMANTF_VAR   | `<TESTMANTF_ROOT>/.var`     | Terraform variable data   |
-| TESTMANTF_CACHE | `<TESTMANTF_ROOT>/.cache`   | Terraform cache           |
-| TESTMANTF_TEST  | `<TESTMANTF_ROOT>/test`     | Test cases root directory |
-|                 | `<TESTMANTF_TEST>/<MODULE>` | Terraform test case       |
+| Shell variable            | Default value                           | Purpose                                             |
+| ------------------------- | --------------------------------------- | --------------------------------------------------- |
+| `TESTMANTF_ROOT`          | `.`                                     | Project directory                                   |
+| `TESTMANTF_VAR`           | `<TESTMANTF_ROOT>/.var`                 | Terraform variable data location                    |
+| `TESTMANTF_CACHE`         | `<TESTMANTF_ROOT>/.cache`               | Terraform cache location                            |
+| `TESTMANTF_TEST`          | `<TESTMANTF_ROOT>/test`                 | Test cases root directory                           |
+|                           | `<TESTMANTF_TEST>/<MODULE>`             | Terraform test case                                 |
+|                           | `<TESTMANTF_TEST>/<MODULE>/exports.env` | Shell environment exported variables                |
+| `TESTMANTF_CMD_TERRAFORM` | `/usr/bin/terraform`                    | Full path to the native terraform app               |
+| `TESTMANTF_CMD_CONTAINER` | `/usr/bin/podman`                       | Full path to the docker compatible container engine |
 
 ## Usage
 
