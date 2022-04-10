@@ -7,11 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0]
+
+### Added
+
+- Added support for container environment files
+
 ## [1.0.0]
 
 ### Changed
 
 - Migrated script from project terra4aws64 and made stand-alone
 
-[Unreleased]: https://github.com/serdigital64/testmantf/compare/1.0.0...HEAD
+[Unreleased]: https://github.com/serdigital64/testmantf/compare/1.1.0...HEAD
+[1.1.0]: https://github.com/serdigital64/testmantf/compare/1.0.0...1.1.0
 [1.0.0]: https://github.com/serdigital64/testmantf/releases/tag/1.0.0
