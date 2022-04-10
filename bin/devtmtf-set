@@ -18,4 +18,4 @@ fi
 # Load global variables
 . ./.env
 
-set | grep DEV_TMT_
+set | grep DEVTMTF_

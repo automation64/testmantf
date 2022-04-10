@@ -8,5 +8,5 @@
 #
 
 # Project base location. Adjust to your local GIT repo
-DEV_TMT_ROOT="${HOME}/git"
-export DEV_TMT_ROOT
+DEVTMTF_ROOT="${HOME}/git"
+export DEVTMTF_ROOT
