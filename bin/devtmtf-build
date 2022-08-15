@@ -1,10 +1,26 @@
 #!/usr/bin/env bash
+#
+# Assemble modular script
+#
+# * Use to build script from multiple sources (modular)
+# * Template Version: v1.0.0
+#
 
-[[ -z "$DEVTMTF_SRC" ]] && echo 'Fatal: dev env not set' && exit 1
+# shellcheck source=SCRIPTDIR/devtmtf-set
+source ./bin/devtmtf-set || exit 1
+# shellcheck source=SCRIPTDIR/../lib/bashlib64.bash
+source "$DEVTMTF_LIB_BASHLIB64" || exit 1
 
-set -x
-cat \
-  "${DEVTMTF_SRC}/testmantf.header" \
-  "${DEVTMTF_SRC}/bashlib64.bash" \
-  "${DEVTMTF_SRC}/testmantf.bash" \
-  >"${DEVTMTF_BUILD}/testmantf"
+# shellcheck disable=SC2154
+bl64_msg_show_text "Build app (${DEVTMTF_BUILD_PROD})"
+bl64_fs_merge_files \
+  '0755' \
+  "$BL64_LIB_DEFAULT" \
+  "$BL64_LIB_DEFAULT" \
+  "$BL64_LIB_VAR_ON" \
+  "$DEVTMTF_BUILD_PROD" \
+  "$DEVTMTF_SRC/${DEVTMTF_APP_NAME}-header.bash" \
+  "$DEVTMTF_LIB_BASHLIB64" \
+  "$DEVTMTF_SRC/${DEVTMTF_APP_NAME}-env.bash" \
+  "$DEVTMTF_SRC/${DEVTMTF_APP_NAME}-functions.bash" \
+  "$DEVTMTF_SRC/${DEVTMTF_APP_NAME}-main.bash"

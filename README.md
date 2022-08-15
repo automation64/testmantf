@@ -34,7 +34,6 @@ Directory structure and tools:
 |                           | `<TESTMANTF_TEST>/<MODULE>`             | Terraform test case                                 |
 |                           | `<TESTMANTF_TEST>/<MODULE>/exports.env` | Shell environment exported variables                |
 | `TESTMANTF_CMD_TERRAFORM` | `/usr/bin/terraform`                    | Full path to the native terraform app               |
-| `TESTMANTF_CMD_CONTAINER` | `/usr/bin/podman`                       | Full path to the docker compatible container engine |
 
 ## Usage
 
@@ -93,8 +92,8 @@ mv testmantf ~/.local/bin
 
 Help on implementing new features and maintaining the code base is welcomed.
 
-[Guidelines](CONTRIBUTING.md)
-[Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md)
+- [Guidelines](CONTRIBUTING.md)
+- [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md)
 
 ### License
 
@@ -102,4 +101,4 @@ Help on implementing new features and maintaining the code base is welcomed.
 
 ### Author
 
-- [SerDigital64](https://serdigital64.github.io/)
+- [SerDigital64](https://github.com/serdigital64)
