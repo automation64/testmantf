@@ -3,10 +3,11 @@
 #
 # Project development environment / Local variables
 #
-# * this file should be excluded from GIT
-# * source before .env
+# * This file should be excluded from GIT
+# * Source before .env
+# * Template version: 1.0.0
 #
 
 # Project base location. Adjust to your local GIT repo
-DEVTMTF_ROOT="${HOME}/git"
+DEVTMTF_ROOT="${HOME}/github/testmantf"
 export DEVTMTF_ROOT

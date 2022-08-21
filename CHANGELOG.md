@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0]
+
+- Upgraded to new bashlib64 version
+- Refactored container support
+- Refactored to non-destructive usage only (no apply, no destroy)
+
 ## [1.1.0]
 
 ### Added
@@ -19,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Migrated script from project terra4aws64 and made stand-alone
 
-[Unreleased]: https://github.com/serdigital64/testmantf/compare/1.1.0...HEAD
+[Unreleased]: https://github.com/serdigital64/testmantf/compare/2.0.0...HEAD
+[2.0.0]: https://github.com/serdigital64/testmantf/compare/1.1.0...2.0.0
 [1.1.0]: https://github.com/serdigital64/testmantf/compare/1.0.0...1.1.0
 [1.0.0]: https://github.com/serdigital64/testmantf/releases/tag/1.0.0
