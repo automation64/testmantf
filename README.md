@@ -2,69 +2,48 @@
 
 ## Overview
 
-Test manager for Terraform scripts.
-
-The **testmantf** tool provides a simple management interface for testing terraform scripts either using native Terraform or inside a purpose-build container.
+The **testmantf** tool provides a simple management interface for testing terraform scripts.
 
 Supported features:
 
-- Run test inside container using docker compatible container engine
+- Run test inside container using docker compatible container engine:
   - docker
   - podman
-- Run test using native **terraform**
-- Test terraform scripts
-  - terraform init
-  - terraform apply
-  - terraform show
+- Run test using local tools
+- Test methods / tools:
+  - validate: terraform
+  - security scan: tfsec
+  - linter: tflint
 - Clean-up test environment
-- Isolate test-case's runtime environment from each other:
-  - logs
-  - tfstate
-  - tflock
-  - input variables (exports.env)
-
-Directory structure and tools:
-
-| Shell variable            | Default value                           | Purpose                                             |
-| ------------------------- | --------------------------------------- | --------------------------------------------------- |
-| `TESTMANTF_ROOT`          | `.`                                     | Project directory                                   |
-| `TESTMANTF_VAR`           | `<TESTMANTF_ROOT>/.var`                 | Terraform variable data location                    |
-| `TESTMANTF_CACHE`         | `<TESTMANTF_ROOT>/.cache`               | Terraform cache location                            |
-| `TESTMANTF_TEST`          | `<TESTMANTF_ROOT>/test`                 | Test cases root directory                           |
-|                           | `<TESTMANTF_TEST>/<MODULE>`             | Terraform test case                                 |
-|                           | `<TESTMANTF_TEST>/<MODULE>/exports.env` | Shell environment exported variables                |
-| `TESTMANTF_CMD_TERRAFORM` | `/usr/bin/terraform`                    | Full path to the native terraform app               |
+- Isolate test-case's runtime environment from each other
 
 ## Usage
 
 ```text
-Usage: testmantf <-t|-d|-s|-c> -n Module [-i Image] [-o] [-D Level] [-h]
+Usage: testmantf <-v|-l|-s> [-o] [-c Case] [-p Project] [-x Terraform] [-y TFLint] [-z TFSec] [-V Verbose] [-D Debug] [-h]
 
 Test Terraform modules
 
 Commands
 
-    -t       : Run module test (terraform init, terraform apply)
-    -d       : Destroy module test infrastructure (terraform destroy)
-    -s       : Show current test infrastructure (terraform show)
-    -c       : Clean test environment
+    -v          : Validate code (terraform validate)
+    -l          : Lint code (tflint)
+    -s          : Security check code (tfsec)
 
 Flags
 
-    -o       : Enable container mode (run actions inside a container)
-    -h       : Show help
+    -h          : Show help
+    -o          : Container mode
 
 Parameters
 
-    -n Module: module name
-    -i Image : container image name (default: docker.io/hashicorp/terraform:latest)
-    -D Level : debug level
-```
-
-### Test script with terraform apply
-
-```shell
-testmantf -t -o -n provider
+    -c Case     : module name. Must exist under test/terraform. Default: all
+    -p Project  : full path to the project. Default: PWD
+    -x Terraform: full path where the terraform binary is. Default: autodetect
+    -y TFLint   : full path where the tflint binary is. Default: /usr/local/bin
+    -z TFSec    : full path where the tfsec binary is. Default: /usr/local/bin
+    -V Verbose  : Set verbosity level. Format: one of BL64_MSG_VERBOSE_*
+    -D Debug    : Enable debugging mode. Format: one of BL64_DBG_TARGET_*
 ```
 
 ## Deployment
@@ -74,8 +53,11 @@ testmantf -t -o -n provider
 - Bash >= v4
 - Container test
   - Podman >= v3
-- Native test
+  - Docker
+- Local test
   - Terraform >= 1
+  - TFSec
+  - TFLint
 
 ### Installation
 
