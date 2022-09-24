@@ -11,6 +11,8 @@
 source ./bin/devtmtf-set || exit 1
 
 echo 'Download bash library: BashLib64'
+echo "$DEVTMTF_LIB"
+pwd
 cd "$DEVTMTF_LIB" &&
   curl -O https://raw.githubusercontent.com/serdigital64/bashlib64/main/bashlib64.bash || exit 1
 
