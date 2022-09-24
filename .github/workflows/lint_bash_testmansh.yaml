@@ -1,0 +1,23 @@
+name: "Lint / Bash / TestManSH"
+
+on:
+  push:
+    branches:
+      - "develop"
+
+jobs:
+  lint_bash_testmansh:
+    runs-on: "ubuntu-latest"
+    steps:
+
+      - name: "Check out repository code"
+        uses: "actions/checkout@main"
+
+      - name: "Prepare repo tools"
+        run: "bin/devtmtf-lib"
+
+      - name: "Build from source"
+        run: "bin/devtmtf-build"
+
+      - name: "Run linter"
+        run: "lib/testmansh -t -c build/testmantf"

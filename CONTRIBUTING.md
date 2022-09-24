@@ -12,6 +12,7 @@
 
   ```shell
   git clone https://github.com/serdigital64/testmantf
+  git flow init
   ```
 
 - Adjust environment variables to reflect your configuration:
@@ -23,10 +24,10 @@
   # Review and update content for both files
   ```
 
-- Initialize dev environment variables
+- Initialize dev environment
 
   ```shell
-  source bin/devtmtf-set
+  ./bin/devtmtf-lib
   ```
 
 ## Testing
