@@ -19,7 +19,7 @@ if test -f ./.local; then
 elif test -n "$GITHUB_WORKSPACE"; then
   echo 'Load GitHub environment variables'
   # shellcheck disable=SC2155
-  export DEVHL_ROOT="$GITHUB_WORKSPACE"
+  export DEVTMTF_ROOT="$GITHUB_WORKSPACE"
 fi
 
 if test -f ./.secrets; then
