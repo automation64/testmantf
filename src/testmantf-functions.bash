@@ -35,7 +35,7 @@ function testmantf_terraform_validate() {
   local case="${1:-}"
   local destination=''
 
-  if [[ "$TESTMANTF_CONTAINER_ON" == "$BL64_LIB_VAR_OFF" ]]; then
+  if [[ "$TESTMANTF_CONTAINER_ON" == "$BL64_VAR_OFF" ]]; then
     bl64_tf_setup "$TESTMANTF_CMD_TERRAFORM" || return $?
 
     destination="${TESTMANTF_LOCAL_TMP}/${case}"
@@ -64,7 +64,7 @@ function testmantf_tflint_lint() {
   local case="${1:-}"
   local destination=''
 
-  if [[ "$TESTMANTF_CONTAINER_ON" == "$BL64_LIB_VAR_OFF" ]]; then
+  if [[ "$TESTMANTF_CONTAINER_ON" == "$BL64_VAR_OFF" ]]; then
 
     TESTMANTF_CMD_TFLINT="${TESTMANTF_CMD_TFLINT}/tflint"
     bl64_check_command "$TESTMANTF_CMD_TFLINT" || return $?
@@ -97,7 +97,7 @@ function testmantf_tfsec_scan() {
   local case="${1:-}"
   local destination=''
 
-  if [[ "$TESTMANTF_CONTAINER_ON" == "$BL64_LIB_VAR_OFF" ]]; then
+  if [[ "$TESTMANTF_CONTAINER_ON" == "$BL64_VAR_OFF" ]]; then
 
     TESTMANTF_CMD_TFSEC="${TESTMANTF_CMD_TFSEC}/tfsec"
     bl64_check_command "$TESTMANTF_CMD_TFSEC" || return $?
@@ -168,10 +168,10 @@ function testmantf_initialize() {
 
   local target=''
 
-  [[ "$command" == "$BL64_LIB_VAR_NULL" ]] && testmantf_help && return 1
+  [[ "$command" == "$BL64_VAR_NULL" ]] && testmantf_help && return 1
 
   # Set project root path
-  if [[ "$root" == "$BL64_LIB_VAR_NULL" ]]; then
+  if [[ "$root" == "$BL64_VAR_NULL" ]]; then
     TESTMANTF_LOCAL_ROOT="$(pwd)"
   else
     bl64_check_directory "$root" || return $?
@@ -200,7 +200,7 @@ function testmantf_initialize() {
     TESTMANTF_TARGETS="$module"
   fi
 
-  if [[ "$TESTMANTF_CONTAINER_ON" == "$BL64_LIB_VAR_ON" ]]; then
+  if [[ "$TESTMANTF_CONTAINER_ON" == "$BL64_VAR_ON" ]]; then
     bl64_cnt_setup || return $?
   fi
 
