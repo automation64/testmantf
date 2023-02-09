@@ -189,7 +189,7 @@ function testmantf_initialize() {
 
   bl64_check_directory "$TESTMANTF_LOCAL_TEST" &&
     bl64_check_directory "$TESTMANTF_LOCAL_TEST_TERRAFORM" &&
-    bl64_fs_create_dir "$TESTMANTF_LOCAL_TMP_MODE" "$BL64_LIB_DEFAULT" "$BL64_LIB_DEFAULT" "$TESTMANTF_LOCAL_TMP" ||
+    bl64_fs_create_dir "$TESTMANTF_LOCAL_TMP_MODE" "$BL64_VAR_DEFAULT" "$BL64_VAR_DEFAULT" "$TESTMANTF_LOCAL_TMP" ||
     return $?
 
   # Identify test cases

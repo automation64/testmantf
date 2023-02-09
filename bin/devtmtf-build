@@ -15,8 +15,8 @@ source "$DEVTMTF_LIB_BASHLIB64" || exit 1
 bl64_msg_show_text "Build app (${DEVTMTF_BUILD_TARGET})"
 bl64_fs_merge_files \
   '0755' \
-  "$BL64_LIB_DEFAULT" \
-  "$BL64_LIB_DEFAULT" \
+  "$BL64_VAR_DEFAULT" \
+  "$BL64_VAR_DEFAULT" \
   "$BL64_VAR_ON" \
   "$DEVTMTF_BUILD_TARGET" \
   "$DEVTMTF_SRC/${DEVTMTF_APP_NAME}-header.bash" \

@@ -6,7 +6,7 @@
 # Globals
 #
 
-export TESTMANTF_CMD_TERRAFORM="$BL64_LIB_DEFAULT"
+export TESTMANTF_CMD_TERRAFORM="$BL64_VAR_DEFAULT"
 export TESTMANTF_CMD_TFLINT='/usr/local/bin'
 export TESTMANTF_CMD_TFSEC='/usr/local/bin'
 
