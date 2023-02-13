@@ -195,7 +195,7 @@ function testmantf_initialize() {
   # Identify test cases
   if [[ "$module" == 'all' ]]; then
     TESTMANTF_TARGETS="$(cd "$TESTMANTF_LOCAL_TEST_TERRAFORM" && "$BL64_FS_CMD_LS")" && [[ -n "$TESTMANTF_TARGETS" ]]
-    bl64_check_alert_failed $? 'unable to identify test cases. Test repository seems to be empty.' || return $?
+    bl64_check_status $? 'unable to identify test cases. Test repository seems to be empty.' || return $?
   else
     TESTMANTF_TARGETS="$module"
   fi
