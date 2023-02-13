@@ -21,7 +21,7 @@ export TESTMANTF_LOCAL_CASE_MODE='0777'
 
 export TESTMANTF_CONTAINER_ON="$BL64_VAR_OFF"
 export TESTMANTF_CONTAINER_REGISTRY='ghcr.io/serdigital64'
-export TESTMANTF_CONTAINER_IMAGE='oraclelinux-8-terraform-test:latest'
+export TESTMANTF_CONTAINER_IMAGE='terraform-test/oraclelinux-9-terraform-test:latest'
 export TESTMANTF_CONTAINER_ROOT='/prj'
 export TESTMANTF_CONTAINER_TMP="${TESTMANTF_CONTAINER_ROOT}/.tmp"
 export TESTMANTF_CONTAINER_BIN="${TESTMANTF_CONTAINER_ROOT}/bin"
