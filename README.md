@@ -20,7 +20,7 @@ Supported features:
 ## Usage
 
 ```text
-Usage: testmantf <-v|-l|-s> [-o] [-c Case] [-p Project] [-x Terraform] [-y TFLint] [-z TFSec] [-V Verbose] [-D Debug] [-h]
+Usage: testmantf <-v|-l|-s|-q> [-o] [-c Case] [-p Project] [-x Terraform] [-y TFLint] [-z TFSec] [-V Verbose] [-D Debug] [-h]
 
 Test Terraform modules
 
@@ -29,6 +29,7 @@ Commands
     -v          : Validate code (terraform validate)
     -l          : Lint code (tflint)
     -s          : Security check code (tfsec)
+    -q          : Open testing container
 
 Flags
 
@@ -39,7 +40,7 @@ Parameters
 
     -c Case     : module name. Must exist under test/terraform. Default: all
     -p Project  : full path to the project. Default: PWD
-    -x Terraform: full path where the terraform binary is. Default: autodetect
+    -x Terraform: full path where the terraform binary is. Default: autodetec
     -y TFLint   : full path where the tflint binary is. Default: /usr/local/bin
     -z TFSec    : full path where the tfsec binary is. Default: /usr/local/bin
     -V Verbose  : Set verbosity level. Format: one of BL64_MSG_VERBOSE_*

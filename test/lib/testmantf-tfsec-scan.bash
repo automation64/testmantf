@@ -8,6 +8,7 @@ source "${TESTMANTF_CONTAINER_LIB}/bashlib64.bash" || exit 1
 
 declare case="$1"
 declare tfsec_bin='/usr/local/bin/tfsec'
+declare tfsec_out="${case}/.tfsec"
 
 #
 # Main
@@ -19,5 +20,8 @@ cd "$case" &&
   "$tfsec_bin" \
     --concise-output \
     --tfvars-file terraform.tfvars \
-    . &&
-  bl64_fs_run_chmod -R '0777' '.tfsec'
+    .
+
+[[ -f "$tfsec_out" ]] && bl64_fs_fix_permissions '0666' '0777' "$tfsec_out"
+
+exit 0
