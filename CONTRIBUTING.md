@@ -1,8 +1,6 @@
 # Contributing
 
-## Development
-
-### Environment
+## Prepare Development Environment
 
 - Prepare dev tools
   - Install GIT
@@ -12,24 +10,41 @@
 
   ```shell
   git clone https://github.com/serdigital64/testmantf
+  git flow init
   ```
 
-- Adjust environment variables to reflect your configuration:
+- Adjust environment variables to match your configuration:
+
+  - Copy environment definition files from templates:
 
   ```shell
-  # Copy environment definition files from templates:
   cp dot.local .local
   cp dot.secrets .secrets
-  # Review and update content for both files
   ```
 
-- Initialize dev environment variables
+  - Review and update content for both files to match your environment
+
+- Download dev support scripts
 
   ```shell
-  source bin/devtmtf-set
+  ./bin/devtmtf-lib
   ```
 
-## Testing
+## Update source code
+
+- Add/Edit source code in: `src/`
+
+## Build
+
+- Build distributable script
+
+  ```shell
+  ./bin/devtmtf-build
+  ```
+
+## Test source code
+
+- Add/update test-cases in: `test/`
 
 ## Repositories
 

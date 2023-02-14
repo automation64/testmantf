@@ -5,13 +5,13 @@
 declare testmantf_status=1
 declare testmantf_debug="$BL64_DBG_TARGET_NONE"
 declare testmantf_verbose="$BL64_MSG_VERBOSE_APP"
-declare testmantf_command="$BL64_LIB_VAR_NULL"
+declare testmantf_command="$BL64_VAR_NULL"
 declare testmantf_option=''
 declare testmantf_case='all'
-declare testmantf_root="$BL64_LIB_VAR_NULL"
+declare testmantf_root="$BL64_VAR_NULL"
 
 (($# == 0)) && testmantf_help && exit 1
-while getopts ':vlsoc:x:y:z:V:D:h' testmantf_option; do
+while getopts ':vlsqoc:x:y:z:V:D:h' testmantf_option; do
   case "$testmantf_option" in
   v)
     testmantf_command='testmantf_validate'
@@ -25,11 +25,15 @@ while getopts ':vlsoc:x:y:z:V:D:h' testmantf_option; do
     testmantf_command='testmantf_scan'
     testmantf_command_tag='scan with tfsec'
     ;;
+  q)
+    testmantf_command='testmantf_open'
+    testmantf_command_tag='open testing container'
+    ;;
   c) testmantf_case="$OPTARG" ;;
-  o) TESTMANTF_CONTAINER_ON="$BL64_LIB_VAR_ON" ;;
-  x) TESTMANTF_CMD_TERRAFORM="$BL64_LIB_VAR_ON" ;;
-  y) TESTMANTF_CMD_TFLINT="$BL64_LIB_VAR_ON" ;;
-  z) TESTMANTF_CMD_TFSEC="$BL64_LIB_VAR_ON" ;;
+  o) TESTMANTF_CONTAINER_ON="$BL64_VAR_ON" ;;
+  x) TESTMANTF_CMD_TERRAFORM="$BL64_VAR_ON" ;;
+  y) TESTMANTF_CMD_TFLINT="$BL64_VAR_ON" ;;
+  z) TESTMANTF_CMD_TFSEC="$BL64_VAR_ON" ;;
   V) testmantf_verbose="$OPTARG" ;;
   D) testmantf_debug="$OPTARG" ;;
   h) testmantf_help && exit 0 ;;
@@ -45,6 +49,7 @@ case "$testmantf_command" in
 'testmantf_validate') "$testmantf_command" ;;
 'testmantf_lint') "$testmantf_command" ;;
 'testmantf_scan') "$testmantf_command" ;;
+'testmantf_open') "$testmantf_command" ;;
 *) bl64_check_alert_parameter_invalid "$testmantf_command" ;;
 esac
 testmantf_status=$?
