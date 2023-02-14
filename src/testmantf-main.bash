@@ -11,7 +11,7 @@ declare testmantf_case='all'
 declare testmantf_root="$BL64_VAR_NULL"
 
 (($# == 0)) && testmantf_help && exit 1
-while getopts ':vlsoc:x:y:z:V:D:h' testmantf_option; do
+while getopts ':vlsqoc:x:y:z:V:D:h' testmantf_option; do
   case "$testmantf_option" in
   v)
     testmantf_command='testmantf_validate'
@@ -24,6 +24,10 @@ while getopts ':vlsoc:x:y:z:V:D:h' testmantf_option; do
   s)
     testmantf_command='testmantf_scan'
     testmantf_command_tag='scan with tfsec'
+    ;;
+  q)
+    testmantf_command='testmantf_open'
+    testmantf_command_tag='open testing container'
     ;;
   c) testmantf_case="$OPTARG" ;;
   o) TESTMANTF_CONTAINER_ON="$BL64_VAR_ON" ;;
@@ -45,6 +49,7 @@ case "$testmantf_command" in
 'testmantf_validate') "$testmantf_command" ;;
 'testmantf_lint') "$testmantf_command" ;;
 'testmantf_scan') "$testmantf_command" ;;
+'testmantf_open') "$testmantf_command" ;;
 *) bl64_check_alert_parameter_invalid "$testmantf_command" ;;
 esac
 testmantf_status=$?

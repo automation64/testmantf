@@ -48,13 +48,7 @@ function testmantf_terraform_validate() {
   else
     destination="${TESTMANTF_CONTAINER_TMP}/${case}"
     bl64_msg_show_task "Lint test case with terraform validate (${destination})"
-
-    bl64_cnt_run_interactive \
-      --env TESTMANTF_CONTAINER_LIB \
-      --volume "${TESTMANTF_LOCAL_ROOT}:${TESTMANTF_CONTAINER_ROOT}" \
-      "${TESTMANTF_CONTAINER_REGISTRY}/${TESTMANTF_CONTAINER_IMAGE}" \
-      "${TESTMANTF_CONTAINER_TEST_LIB}/testmantf-terraform-validate.bash" \
-      "$destination"
+    testmantf_container_run "$destination" '/testmantf-terraform-validate.bash'
   fi
 
   return 0
@@ -81,13 +75,7 @@ function testmantf_tflint_lint() {
   else
     destination="${TESTMANTF_CONTAINER_TMP}/${case}"
     bl64_msg_show_task "Lint test case with terraform validate (${destination})"
-
-    bl64_cnt_run_interactive \
-      --env TESTMANTF_CONTAINER_LIB \
-      --volume "${TESTMANTF_LOCAL_ROOT}:${TESTMANTF_CONTAINER_ROOT}" \
-      "${TESTMANTF_CONTAINER_REGISTRY}/${TESTMANTF_CONTAINER_IMAGE}" \
-      "${TESTMANTF_CONTAINER_TEST_LIB}/testmantf-tflint-lint.bash" \
-      "$destination"
+    testmantf_container_run "$destination" '/testmantf-tflint-lint.bash'
   fi
 
   return 0
@@ -114,16 +102,32 @@ function testmantf_tfsec_scan() {
   else
     destination="${TESTMANTF_CONTAINER_TMP}/${case}"
     bl64_msg_show_task "Lint test case with terraform validate (${destination})"
-
-    bl64_cnt_run_interactive \
-      --env TESTMANTF_CONTAINER_LIB \
-      --volume "${TESTMANTF_LOCAL_ROOT}:${TESTMANTF_CONTAINER_ROOT}" \
-      "${TESTMANTF_CONTAINER_REGISTRY}/${TESTMANTF_CONTAINER_IMAGE}" \
-      "${TESTMANTF_CONTAINER_TEST_LIB}/testmantf-tfsec-scan.bash" \
-      "$destination"
+    testmantf_container_run "$destination" '/testmantf-tfsec-scan.bash'
   fi
 
   return 0
+}
+
+function testmantf_open() {
+  local target='/bin/bash'
+
+  bl64_cnt_run_interactive \
+    --env TESTMANTF_CONTAINER_LIB \
+    --volume "${TESTMANTF_LOCAL_ROOT}:${TESTMANTF_CONTAINER_ROOT}" \
+    --entrypoint "sh" \
+    "${TESTMANTF_CONTAINER_REGISTRY}/${TESTMANTF_CONTAINER_IMAGE}"
+}
+
+function testmantf_container_run() {
+  local destination="$1"
+  local script="$2"
+
+  bl64_cnt_run_interactive \
+    --env TESTMANTF_CONTAINER_LIB \
+    --volume "${TESTMANTF_LOCAL_ROOT}:${TESTMANTF_CONTAINER_ROOT}" \
+    "${TESTMANTF_CONTAINER_REGISTRY}/${TESTMANTF_CONTAINER_IMAGE}" \
+    "${TESTMANTF_CONTAINER_TEST_LIB}/${script}" \
+    "$destination"
 }
 
 function testmantf_validate() {
@@ -166,8 +170,6 @@ function testmantf_initialize() {
   local module="$4"
   local root="$5"
 
-  local target=''
-
   [[ "$command" == "$BL64_VAR_NULL" ]] && testmantf_help && return 1
 
   # Set project root path
@@ -200,7 +202,7 @@ function testmantf_initialize() {
     TESTMANTF_TARGETS="$module"
   fi
 
-  if [[ "$TESTMANTF_CONTAINER_ON" == "$BL64_VAR_ON" ]]; then
+  if [[ "$TESTMANTF_CONTAINER_ON" == "$BL64_VAR_ON" || "$command" == 'testmantf_open' ]]; then
     bl64_cnt_setup || return $?
   fi
 
@@ -209,12 +211,13 @@ function testmantf_initialize() {
 
 function testmantf_help() {
   bl64_msg_show_usage \
-    '<-v|-l|-s> [-o] [-c Case] [-p Project] [-x Terraform] [-y TFLint] [-z TFSec] [-V Verbose] [-D Debug] [-h]' \
+    '<-v|-l|-s|-q> [-o] [-c Case] [-p Project] [-x Terraform] [-y TFLint] [-z TFSec] [-V Verbose] [-D Debug] [-h]' \
     'Test Terraform modules' \
     '
     -v          : Validate code (terraform validate)
     -l          : Lint code (tflint)
     -s          : Security check code (tfsec)
+    -q          : Open testing container
     ' '
     -h          : Show help
     -o          : Container mode
