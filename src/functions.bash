@@ -164,13 +164,12 @@ function testmantf_scan() {
 }
 
 function testmantf_initialize() {
-  local verbose="$1"
-  local debug="$2"
-  local command="$3"
-  local module="$4"
-  local root="$5"
+  local command="$1"
+  local module="$2"
+  local root="$3"
 
-  [[ "$command" == "$BL64_VAR_NULL" ]] && testmantf_help && return 1
+  bl64_check_parameter 'command' ||
+    { testmantf_help && return 1; }
 
   # Set project root path
   if [[ "$root" == "$BL64_VAR_NULL" ]]; then
@@ -179,10 +178,6 @@ function testmantf_initialize() {
     bl64_check_directory "$root" || return $?
     TESTMANTF_LOCAL_ROOT="$root"
   fi
-
-  bl64_dbg_set_level "$debug" &&
-    bl64_msg_set_level "$verbose" ||
-    return $?
 
   # Set project directory structure
   TESTMANTF_LOCAL_TMP="${TESTMANTF_LOCAL_ROOT}/.tmp"

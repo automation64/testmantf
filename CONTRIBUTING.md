@@ -27,7 +27,7 @@
 - Download dev support scripts
 
   ```shell
-  ./bin/devtmtf-lib
+  ./bin/dev-lib
   ```
 
 ## Update source code
@@ -39,7 +39,7 @@
 - Build distributable script
 
   ```shell
-  ./bin/devtmtf-build
+  ./bin/dev-build
   ```
 
 ## Test source code
