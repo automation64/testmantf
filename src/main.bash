@@ -13,22 +13,10 @@ declare testmantf_root="$BL64_VAR_NULL"
 (($# == 0)) && testmantf_help && exit 1
 while getopts ':vlsqoc:x:y:z:V:D:h' testmantf_option; do
   case "$testmantf_option" in
-  v)
-    testmantf_command='testmantf_validate'
-    testmantf_command_tag='validate with terraform'
-    ;;
-  l)
-    testmantf_command='testmantf_lint'
-    testmantf_command_tag='lint with tflint'
-    ;;
-  s)
-    testmantf_command='testmantf_scan'
-    testmantf_command_tag='scan with tfsec'
-    ;;
-  q)
-    testmantf_command='testmantf_open'
-    testmantf_command_tag='open testing container'
-    ;;
+  v) testmantf_command='testmantf_validate' ;;
+  l) testmantf_command='testmantf_lint' ;;
+  s) testmantf_command='testmantf_scan' ;;
+  q) testmantf_command='testmantf_open' ;;
   c) testmantf_case="$OPTARG" ;;
   o) TESTMANTF_CONTAINER_ON="$BL64_VAR_ON" ;;
   x) TESTMANTF_CMD_TERRAFORM="$BL64_VAR_ON" ;;
@@ -40,11 +28,10 @@ while getopts ':vlsqoc:x:y:z:V:D:h' testmantf_option; do
   *) testmantf_help && exit 1 ;;
   esac
 done
-testmantf_initialize "$testmantf_verbose" "$testmantf_debug" "$testmantf_command" \
-  "$testmantf_case" "$testmantf_root" ||
-  exit 1
+bl64_dbg_set_level "$testmantf_debug" && bl64_msg_set_level "$testmantf_verbose" || exit $?
+testmantf_initialize "$testmantf_command" "$testmantf_case" "$testmantf_root" || exit $?
 
-bl64_msg_show_batch_start "$testmantf_command_tag"
+bl64_msg_show_batch_start "$testmantf_command"
 case "$testmantf_command" in
 'testmantf_validate') "$testmantf_command" ;;
 'testmantf_lint') "$testmantf_command" ;;
@@ -54,5 +41,5 @@ case "$testmantf_command" in
 esac
 testmantf_status=$?
 
-bl64_msg_show_batch_finish $testmantf_status "$testmantf_command_tag"
+bl64_msg_show_batch_finish $testmantf_status "$testmantf_command"
 exit $testmantf_status
