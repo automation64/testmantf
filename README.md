@@ -65,7 +65,7 @@ Parameters
 Download **testmantf** from the source GitHub repository:
 
 ```shell
-curl -O https://raw.githubusercontent.com/serdigital64/testmantf/main/testmantf
+curl -O https://raw.githubusercontent.com/automation64/testmantf/main/testmantf
 chmod 0755 testmantf
 # Optional: move to searchable path
 mv testmantf ~/.local/bin
@@ -80,7 +80,7 @@ Help on implementing new features and maintaining the code base is welcomed.
 
 ### License
 
-[GPL-3.0-or-later](https://www.gnu.org/licenses/gpl-3.0.txt)
+[Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ### Author
 
