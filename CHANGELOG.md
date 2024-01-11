@@ -27,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Migrated script from project terra4aws64 and made stand-alone
 
-[2.2.0]: https://github.com/serdigital64/testmantf/compare/2.0.0...2.2.0
-[2.0.0]: https://github.com/serdigital64/testmantf/compare/1.1.0...2.0.0
-[1.1.0]: https://github.com/serdigital64/testmantf/compare/1.0.0...1.1.0
-[1.0.0]: https://github.com/serdigital64/testmantf/releases/tag/1.0.0
+[2.2.0]: https://github.com/automation64/testmantf/compare/2.0.0...2.2.0
+[2.0.0]: https://github.com/automation64/testmantf/compare/1.1.0...2.0.0
+[1.1.0]: https://github.com/automation64/testmantf/compare/1.0.0...1.1.0
+[1.0.0]: https://github.com/automation64/testmantf/releases/tag/1.0.0

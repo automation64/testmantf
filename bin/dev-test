@@ -11,5 +11,5 @@
 # shellcheck source=SCRIPTDIR/dev-set
 source ./bin/dev-set || exit 1
 
-"$DEVTMTF_CICD_BUILD" &&
-  "$DEVTMTF_CICD_TESTMANSH" -b -o -e "$DEVTMTF_TEST_CONTAINER"
+"$DEV_CICD_BUILD" &&
+  "$DEV_CICD_TESTMANSH" -b -o -e "$DEV_TEST_CONTAINER"

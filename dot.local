@@ -9,5 +9,5 @@
 #
 
 # Project base location. Adjust to your local GIT repo
-DEVTMTF_ROOT="${HOME}/github/testmantf"
-export DEVTMTF_ROOT
+DEV_ROOT="$(pwd)"
+export DEV_ROOT

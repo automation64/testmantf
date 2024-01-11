@@ -5,12 +5,11 @@
 - Prepare dev tools
   - Install GIT
   - Install Container engine
-    - Podman
+    - Podman, Docker
 - Clone GIT repository
 
   ```shell
-  git clone https://github.com/serdigital64/testmantf
-  git flow init
+  git clone https://github.com/automation64/testmantf
   ```
 
 - Adjust environment variables to match your configuration:
@@ -48,6 +47,6 @@
 
 ## Repositories
 
-- Project GIT repository: [https://github.com/serdigital64/testmantf](https://github.com/serdigital64/testmantf)
-- Project Documentation: [https://github.com/serdigital64/testmantf](https://github.com/serdigital64/testmantf)
+- Project GIT repository: [https://github.com/automation64/testmantf](https://github.com/automation64/testmantf)
+- Project Documentation: [https://github.com/automation64/testmantf](https://github.com/automation64/testmantf)
 - Release history: [CHANGELOG](CHANGELOG.md)
